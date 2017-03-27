@@ -1,0 +1,38 @@
+[
+    {
+        "request": {
+            "url": "https://hooks.slack.com/services/",
+            "path": "/services/",
+            "body": "{\"username\": \"gcdt kumo\", \"icon_emoji\": \":cloudformation:\", \"channel\": \"#ops-test\", \"attachments\": [{\"color\": \"good\", \"pretext\": \"my_message\", \"fallback\": \"my_message\", \"fields\": [{\"value\": \"\", \"title\": \"Success\"}]}]}", 
+            "method": "POST", 
+            "headers": {
+                "Connection": "keep-alive", 
+                "Content-Length": "217", 
+                "Accept-Encoding": "gzip, deflate", 
+                "Accept": "*/*", 
+                "User-Agent": "python-requests/2.13.0"
+            }
+        }, 
+        "response": {
+            "body": "ok", 
+            "status_code": 200, 
+            "headers": {
+                "Content-Length": "22", 
+                "Via": "1.1 efed2d5ffeb697060f4a3aa73bdf068f.cloudfront.net (CloudFront)", 
+                "X-Cache": "Miss from cloudfront", 
+                "Content-Encoding": "gzip", 
+                "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload", 
+                "Vary": "Accept-Encoding", 
+                "Server": "Apache", 
+                "Connection": "keep-alive", 
+                "X-Slack-Backend": "h", 
+                "X-Amz-Cf-Id": "CmFL-dVOAO47pSnO-rfLlgBhkjzg_8fSVoDoNekK2Xse7Hj3BNvvYA==", 
+                "Date": "Thu, 02 Mar 2017 14:50:20 GMT", 
+                "Access-Control-Allow-Origin": "*", 
+                "Referrer-Policy": "no-referrer", 
+                "Content-Type": "text/html", 
+                "X-Frame-Options": "SAMEORIGIN"
+            }
+        }
+    }
+]
