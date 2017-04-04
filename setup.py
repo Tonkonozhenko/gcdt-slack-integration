@@ -23,7 +23,7 @@ dependency_links = [x.strip().replace('git+', '') for x in all_reqs if 'git+' no
 
 setup(
     name='gcdt-slack-integration',
-    version='0.0.10.dev0',
+    version='0.0.10',
     description='Plugin (gcdt-slack-integration) for gcdt',
     long_description=long_description,
     license='MIT',

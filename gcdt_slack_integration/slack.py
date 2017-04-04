@@ -64,12 +64,12 @@ def notify(params):
     """
     context, config = params
     tool = context['tool']
-    if 'plugins' not in config or 'slack_integration' not in config['plugins']:
+    if 'plugins' not in config or 'gcdt_slack_integration' not in config['plugins']:
         return
-    webhook = config['plugins']['slack_integration'].get('slack_webhook', None)
+    webhook = config['plugins']['gcdt_slack_integration'].get('slack_webhook', None)
     if not webhook.startswith('https'):
         return
-    channel = config['plugins']['slack_integration'].get('channel', '#systemmessages')
+    channel = config['plugins']['gcdt_slack_integration'].get('channel', '#systemmessages')
     message = None
 
     status = 'failed' if 'error' in context else 'complete'

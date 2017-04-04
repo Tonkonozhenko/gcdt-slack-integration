@@ -20,7 +20,7 @@ def test_slack_notification(mocked_slack_notifications):
             }
         },
         'plugins': {
-            'slack_integration': {
+            'gcdt_slack_integration': {
                 'slack_webhook': 'https://slack.bla.bla'
             }
         }
@@ -47,7 +47,7 @@ def test_slack_error(mocked_slack_notifications):
             }
         },
         'plugins': {
-            'slack_integration': {
+            'gcdt_slack_integration': {
                 'slack_webhook': 'https://slack.bla.bla'
             }
         }
@@ -76,7 +76,7 @@ def test_slack_notification_tenkai(mocked_slack_notifications):
             }
         },
         'plugins': {
-            'slack_integration': {
+            'gcdt_slack_integration': {
                 'slack_webhook': 'https://slack.bla.bla'
             }
         }
@@ -102,7 +102,7 @@ def test_slack_notification_ramuda(mocked_slack_notifications):
             }
         },
         'plugins': {
-            'slack_integration': {
+            'gcdt_slack_integration': {
                 'slack_webhook': 'https://slack.bla.bla'
             }
         }
