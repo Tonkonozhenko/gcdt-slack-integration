@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 """gcdt-plugin to handle slack notifications."""
 from __future__ import unicode_literals, print_function
-import logging
 import json
 
 import requests
 from requests import codes
 
 from gcdt import gcdt_signals
+from gcdt.gcdt_logging import getLogger
 
 
-log = logging.getLogger(__name__)
+log = getLogger(__name__)
 
 # we use "Incoming Webhooks" to integrate with slack
 # docu: https://api.slack.com/incoming-webhooks
