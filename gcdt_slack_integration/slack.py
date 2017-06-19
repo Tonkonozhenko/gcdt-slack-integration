@@ -75,7 +75,13 @@ def notify(params):
     status = 'failed' if 'error' in context else 'complete'
 
     # tool specific messages (later this could be part of the plugin config)
-    if tool == 'kumo':
+    if 'error' in context and tool not in context:
+        # handle the missing config case - we can not provide any specifics
+        message = '%s %s' % (
+            context['command'],
+            status
+        )
+    elif tool == 'kumo':
         if context['command'] in ['deploy', 'delete']:
             message = '%s %s for stack \'%s\'' % (
                 context['command'],
