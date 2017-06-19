@@ -150,3 +150,29 @@ def test_slack_notifications(vts):
     assert vts.responses.calls[0].request.url == webhook
     assert json.loads(vts.responses.calls[0].request.body) == expected_payload
     assert vts.responses.calls[0].response.status_code == 200
+
+
+@mock.patch('gcdt_slack_integration.slack._slack_notification')
+def test_slack_error_no_config(mocked_slack_notifications):
+    context = {'tool': 'kumo', 'command': 'deploy',
+               '_awsclient': 'awsclient-test',
+               'error': 'the following error happened: bang!'
+               }
+    config = {
+        'plugins': {
+            'gcdt_slack_integration': {
+                'slack_webhook': 'https://slack.bla.bla'
+            }
+        }
+    }
+    notify((context, config))
+
+    mocked_slack_notifications.assert_called_once_with(
+        {
+            'tool': 'kumo', 'command': 'deploy',
+            '_awsclient': 'awsclient-test',
+            'error': 'the following error happened: bang!'
+        },
+        'https://slack.bla.bla', '#systemmessages',
+        'kumo deploy: failed'
+    )
