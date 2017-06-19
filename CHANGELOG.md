@@ -4,7 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### [0.0.13] - 2017-06-19 
 #### Added
-- FIX handle missing config case
+- FIX handle missing config error case
 
 ### [0.0.12] - 2017-06-07 
 #### Added
