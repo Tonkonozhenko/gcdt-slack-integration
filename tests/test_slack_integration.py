@@ -15,7 +15,7 @@ def test_slack_notification(mocked_slack_notifications):
                '_awsclient': 'awsclient-test'}
     config = {
         'kumo': {
-            'cloudformation': {
+            'stack': {
                 'StackName': 'infra-dev-test-stack'
             }
         },
@@ -42,7 +42,7 @@ def test_slack_error(mocked_slack_notifications):
                }
     config = {
         'kumo': {
-            'cloudformation': {
+            'stack': {
                 'StackName': 'infra-dev-test-stack'
             }
         },

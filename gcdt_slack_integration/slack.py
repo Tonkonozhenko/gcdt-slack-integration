@@ -87,7 +87,7 @@ def notify(params):
             message = '%s %s for stack \'%s\'' % (
                 context['command'],
                 status,
-                config[tool]['cloudformation'].get('StackName')
+                config[tool]['stack'].get('StackName')
             )
     elif tool == 'tenkai':
         if context['command'] in ['deploy']:
