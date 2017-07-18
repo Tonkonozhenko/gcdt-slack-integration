@@ -5,7 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### [0.0.15] - 2017-07-18
 ### Deprecated
-- kumo cloudformation config section, use "parameters" & "stack" instead (#337)
+- kumo "cloudformation" config section, use "parameters" & "stack" instead (#337)
 
 ### [0.0.14] - 2017-06-29
 #### Added
