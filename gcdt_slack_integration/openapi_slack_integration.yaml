@@ -1,0 +1,53 @@
+swagger: '2.0'
+info:
+  title: gcdt-slack-integration plugin config
+  description: "Documentation of the config file format for `gcdt-slack-integration` (a gcdt plugin). Note: if you want to add to the documentation please edit the openapi_slack_integration.yaml file"
+  version: 0.0.15
+
+paths:
+  /test:
+    get:
+      responses:
+        "200":
+          description:  success
+
+definitions:
+  gcdt_slack_integration:
+    description: 'The plugin config is organized into the following structure:'
+    type: object
+    properties:
+      defaults:
+        description: 'finetune gcdt tool lifecycle (override at own risk)'
+        $ref: '#/definitions/defaults'
+    required:
+    - defaults
+
+  defaults:
+    type: object
+    description: 'Default properties to finetune gcdt tool lifecycle (override at own risk).'
+    properties:
+      validate:
+        type: boolean
+        description: 'use this if you need to switch off config validation.'
+        default: true
+
+      slack_webhook:
+        type: string
+        description: 'webhook for posting to slack'
+        default: 'lookup:secret:slack.webhook:CONTINUE_IF_NOT_FOUND'
+        pattern: 'https://hooks\.slack\.com/services.+'
+
+    required:
+    - validate
+    - slack_webhook
+    additionalProperties: false
+
+  top:
+    type: object
+    properties:
+      plugins:
+        type: object
+        properties:
+          gcdt_slack_integration:
+            type: object
+            $ref: '#/definitions/gcdt_slack_integration'

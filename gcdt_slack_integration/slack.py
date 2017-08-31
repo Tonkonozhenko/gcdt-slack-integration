@@ -2,12 +2,16 @@
 """gcdt-plugin to handle slack notifications."""
 from __future__ import unicode_literals, print_function
 import json
+from copy import deepcopy
 
 import requests
 from requests import codes
 
 from gcdt import gcdt_signals
 from gcdt.gcdt_logging import getLogger
+from gcdt.gcdt_openapi import incept_defaults_helper, validate_config_helper
+from gcdt.utils import get_plugin_defaults, dict_merge
+from . import read_openapi
 
 
 log = getLogger(__name__)
@@ -18,6 +22,7 @@ log = getLogger(__name__)
 
 # map tools to AWS emojis (which we uploaded to slack)
 EMOJIS = {
+    'gcdt': ':cloud:',
     'kumo': ':cloudformation:',
     'tenkai': ':codedeploy:',
     'ramuda': ':lambda:',
@@ -64,9 +69,14 @@ def notify(params):
     """
     context, config = params
     tool = context['tool']
-    if 'plugins' not in config or 'gcdt_slack_integration' not in config['plugins']:
+    #if 'plugins' not in config or 'gcdt_slack_integration' not in config['plugins']:
+    #    return
+    #webhook = config['plugins']['gcdt_slack_integration'].get('slack_webhook', None)
+    plugin = 'gcdt_slack_integration'
+    defaults = get_plugin_defaults(read_openapi(), plugin)
+    webhook = defaults.get('slack_webhook', None)
+    if not webhook:
         return
-    webhook = config['plugins']['gcdt_slack_integration'].get('slack_webhook', None)
     if not webhook.startswith('https'):
         return
     channel = config['plugins']['gcdt_slack_integration'].get('channel', '#systemmessages')
@@ -136,14 +146,34 @@ def notify(params):
         _slack_notification(context, webhook, channel, message)
 
 
+def incept_defaults(params):
+    """incept defaults where needed (after config is read from file).
+    :param params: context, config (context - the _awsclient, etc..
+                   config - The stack details, etc..)
+    """
+    incept_defaults_helper(params, read_openapi(), 'gcdt_slack_integration', True)
+
+
+def validate_config(params):
+    """validate the config after lookups.
+    :param params: context, config (context - the _awsclient, etc..
+                   config - The stack details, etc..)
+    """
+    validate_config_helper(params, read_openapi(), 'gcdt_slack_integration', True)
+
+
 def register():
     """Please be very specific about when your plugin needs to run and why.
     notify is able to handle both 'command_finalized' and 'error' signals.
     """
+    gcdt_signals.config_read_finalized.connect(incept_defaults)
+    gcdt_signals.config_validation_init.connect(validate_config)
     gcdt_signals.command_finalized.connect(notify)
     gcdt_signals.error.connect(notify)
 
 
 def deregister():
+    gcdt_signals.config_read_finalized.disconnect(incept_defaults)
+    gcdt_signals.config_validation_init.disconnect(validate_config)
     gcdt_signals.command_finalized.disconnect(notify)
     gcdt_signals.error.disconnect(notify)
