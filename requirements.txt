@@ -1,5 +1,5 @@
 # Dependencies have to be in sync with other packages (gcdt, glomex-credstash)
 gcdt>=0.2.0
-requests
+requests  # TODO use the one available with botocore.vendored
 
 # Other dependencies
