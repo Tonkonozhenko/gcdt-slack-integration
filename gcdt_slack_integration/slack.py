@@ -69,11 +69,8 @@ def notify(params):
     """
     context, config = params
     tool = context['tool']
-    #if 'plugins' not in config or 'gcdt_slack_integration' not in config['plugins']:
-    #    return
-    #webhook = config['plugins']['gcdt_slack_integration'].get('slack_webhook', None)
     plugin = 'gcdt_slack_integration'
-    defaults = get_plugin_defaults(read_openapi(), plugin)
+    defaults = get_plugin_defaults(config, plugin)
     webhook = defaults.get('slack_webhook', None)
     if not webhook:
         return
